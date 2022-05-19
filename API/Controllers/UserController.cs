@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ public class UserController : BaseController
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers() => await _context.Users.AsNoTracking().ToListAsync();
 
+    [Authorize]
     [HttpGet("{id:int}")]
     public async Task<ActionResult<AppUser>> Get(int id) => await _context.Users.FindAsync(id);
 }
